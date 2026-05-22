@@ -26,16 +26,19 @@ agent-crew는 *순수 자산 저장소*다 — 평가·적용·대시보드·런
 ```
 agent-crew/
 ├── agents/                  # 공유 에이전트 (.md)
-│   ├── jira-manager.md       # 작업 추적 — Jira 이슈/태스크 연동
-│   ├── notion-manager.md     # 작업 추적 — Notion 작업·일정 데이터베이스
-│   ├── notion-doc-writer.md  # 문서 저작 — 스펙·PRD·설계 문서 → Notion 페이지
-│   ├── test-strategist.md    # 테스트 전략 — 시나리오 도출 → 테스트 피라미드 매핑
-│   ├── journal-recorder.md   # 지식 축적 — 작업 산출물 → raw 시드
-│   ├── wiki-curator.md       # 지식 축적 — raw 시드 → wiki 합성·승격
-│   └── wiki-lookup.md        # 지식 회수 — 작업 전 wiki 조회
+│   ├── jira-manager.md         # 작업 추적 — Jira 이슈/태스크 연동
+│   ├── notion-manager.md       # 작업 추적 — Notion 작업·일정 데이터베이스
+│   ├── notion-doc-writer.md    # 문서 저작 — 스펙·PRD·설계 문서 → Notion 페이지
+│   ├── test-strategist.md      # 테스트 전략 — 시나리오 → 테스트 피라미드 매핑
+│   ├── decision-researcher.md  # 의사결정 — 조사·옵션·트레이드오프 리서치 브리프
+│   ├── adr-author.md           # 의사결정 — ADR 작성·확정 (in-repo docs/adr/)
+│   ├── journal-recorder.md     # 지식 축적 — 작업 산출물 → raw 시드
+│   ├── wiki-curator.md         # 지식 축적 — raw 시드 → wiki 합성·승격
+│   └── wiki-lookup.md          # 지식 회수 — 작업 전 wiki 조회
 ├── skills/
 │   ├── journal/SKILL.md      # 사용자 직접 기록·문서 생성 진입점
-│   └── test-plan/SKILL.md    # 테스트 계획 수립 진입점
+│   ├── test-plan/SKILL.md    # 테스트 계획 수립 진입점
+│   └── adr/SKILL.md          # 조사·결정·기록 ADR 파이프라인 진입점
 ├── references/               # 스택 특화 지식 팩 (제네릭 자산이 런타임 로드)
 │   └── java-spring/          # Java·Spring Boot
 ├── project.yaml.example      # 소비 프로젝트가 채워야 할 설정 스키마
@@ -50,7 +53,8 @@ agent-crew/
 
 agent-crew는 **모든 프로젝트가 공통으로 쓰는 "메타 운영" 레이어**를 담는다 — 작업 추적
 (`jira-manager` · `notion-manager`), 문서 저작(`notion-doc-writer`), 테스트 전략
-(`test-strategist`), 지식 복리 축적(`journal-recorder` → `wiki-curator` → `wiki-lookup`).
+(`test-strategist`), 의사결정(`decision-researcher` → `adr-author`), 지식 복리 축적
+(`journal-recorder` → `wiki-curator` → `wiki-lookup`).
 
 헥사고날 코드 생성 파이프라인(builder·reviewer 등) 같은 **프로젝트 고유 자산**은 담지
 않는다 — 조직 설계가 프로젝트마다 갈려 공통화가 안 되기 때문.

@@ -43,7 +43,7 @@ knowledge:
     # vault 가 git 레포면 true — 갱신 후 commit 한다
     git: true
 
-# ── 문서 저작 (notion-doc-writer) ───────────────────────────
+# ── 문서 저작 (notion-doc-writer / adr-author) ──────────────
 # 스펙·PRD·설계 문서 등 "능동 산출 문서"를 Notion 에 쓸 때 설정한다.
 # raw 시드 → 합성 지식베이스(vault wiki)는 위 knowledge 섹션 담당 — 역할이 다르다.
 docs:
@@ -53,6 +53,9 @@ docs:
     # 문서가 들어갈 Notion 상위 페이지 또는 데이터베이스 ID.
     # 데이터베이스면 각 문서가 레코드로, 일반 페이지면 하위 페이지로 생성된다.
     parentId: ""
+  # ADR(Architecture Decision Record) 저장 경로 — 소비 프로젝트 레포 내 상대 경로.
+  # adr-author 가 이 경로에 NNNN-제목.md 형식으로 ADR 을 쓴다. 미설정 시 기본값 docs/adr.
+  adrPath: docs/adr
 
 # ── agent-crew 동기화 정보 (agent-crew.lock 과 함께 관리) ──────
 agentCrew:
