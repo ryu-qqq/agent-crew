@@ -1,0 +1,39 @@
+# agent-crew 소비 프로젝트 설정
+# 이 파일을 소비 프로젝트의 .claude/project.yaml 로 복사해 값을 채운다.
+# agent-crew 에이전트·스킬은 작업 첫 단계로 이 파일을 Read 하여 프로젝트 고유 값을 얻는다.
+
+project:
+  # 프로젝트 식별자. 시드 파일 prefix, wiki 영역 이름 등에 쓰인다.
+  name: my-project
+  # 한 줄 설명 (선택)
+  description: ""
+
+# ── 작업 추적 (jira-manager) ────────────────────────────────
+tracking:
+  jira:
+    enabled: true
+    # Jira 프로젝트 키. 이 키로 이슈를 조회·갱신한다.
+    projectKey: ABC
+  # notion: 향후 지원 예정
+
+# ── 지식 축적 (journal-recorder / wiki-curator / wiki-lookup / journal) ──
+knowledge:
+  # vault : 외부 wiki 레포에 raw 시드 + 합성 wiki 페이지 (복리 모델, 권장)
+  # in-repo : 향후 지원 예정 — 프로젝트 내부 docs/ 기반
+  mode: vault
+
+  vault:
+    # wiki 레포의 절대 경로 (로컬 체크아웃)
+    path: /absolute/path/to/wiki-repo
+    # vault 내에서 이 프로젝트의 wiki 영역
+    projectPath: wiki/projects/my-project
+    # 컨벤션 등 프로젝트 공통 wiki 영역 (선택)
+    conventionsPath: wiki/conventions
+    # raw 시드 파일명 prefix — raw/<prefix>-<YYYY-MM-DD>-<유형>.md
+    rawPrefix: my-project
+    # vault 가 git 레포면 true — 갱신 후 commit 한다
+    git: true
+
+# ── agent-crew 동기화 정보 (agent-crew.lock 과 함께 관리) ──────
+agentCrew:
+  version: v0.1.0
