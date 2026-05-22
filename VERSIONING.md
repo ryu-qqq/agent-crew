@@ -1,4 +1,4 @@
-# 버전·동기화 정책
+# 버전·릴리스 정책
 
 ## 버전 규칙 (SemVer)
 
@@ -42,33 +42,8 @@ agent-crew는 **git tag로 버전을 끊는다**. 별도 버전 관리 시스템
 즉 **태그는 검증 기록이 채워진 커밋을 가리킨다.** 빠른 수정(PATCH)이라 검증을 건너뛰면
 "검증 상태: 미검증"을 명시한 채 태그한다 — 생략은 가능하되 흔적은 남긴다.
 
-## 동기화 — 왜 submodule이 아닌가
+## 적용·동기화
 
-git submodule은 **디렉토리를 통째로** mount한다. 소비 프로젝트의 `.claude/agents`에는
-그 프로젝트 고유 에이전트도 함께 있으므로, agent-crew의 일부만 `.claude/agents`에
-submodule로 얹을 수 없다 (전부거나 전무).
-
-→ v0.1.0 단계의 공유 방식은 **버전이 고정된 동기화(복사)**다:
-
-1. 소비 프로젝트는 agent-crew의 특정 **태그**를 정해 그 시점 자산을 `.claude/`로 복사한다.
-2. 복사한 버전을 `.claude/agent-crew.lock`에 기록한다 (예: `version: v0.1.0`).
-3. 업그레이드는 *의도적으로* — 새 태그를 골라 다시 동기화하고 lock을 갱신한다.
-
-symlink와 다르다. 실제 파일이 프로젝트 안에 있고(세션이 항상 로드 가능), lock으로
-"어느 버전을 쓰는 중인지"가 추적된다. 로컬 경로에 의존하지 않는다.
-
-> 소비 프로젝트의 `.claude/agents` 전체를 agent-crew로 대체할 수 있게 되면
-> (= 프로젝트가 공유 표준 조직을 100% 채택하면) 그때 submodule 전환이 가능하다.
-> 그 결정은 각 프로젝트 몫이다. marketplace는 `HTCA-73`에서 다룬다.
-
-## lock 파일 형식
-
-소비 프로젝트 `.claude/agent-crew.lock`:
-
-```yaml
-version: v0.1.0
-syncedAt: 2026-05-22
-assets:
-  agents: [jira-manager, journal-recorder, wiki-curator, wiki-lookup]
-  skills: [journal]
-```
+소비 프로젝트로 자산을 가져가는 방식 — 동기화·버전 핀 고정·적용 — 은 **ops-pilot**이 맡는다.
+agent-crew는 자산을 만들고 git tag로 버전을 끊는 데까지만 책임진다.
+→ [README](./README.md) "생태계".

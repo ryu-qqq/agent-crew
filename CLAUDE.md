@@ -73,7 +73,7 @@
 agent-crew/
 ├── CLAUDE.md            # 이 파일
 ├── README.md            # 레포 소개·생태계 위치
-├── VERSIONING.md        # 버전·동기화·릴리스 기록 정책
+├── VERSIONING.md        # 버전·릴리스 정책
 ├── CHANGELOG.md         # 버전별 한 줄 인덱스
 ├── project.yaml.example # 소비 프로젝트 설정 스키마
 ├── agents/              # 공유 에이전트 (.md)
