@@ -50,16 +50,20 @@
    grep -rnE "/Users/|marketplace|FileFlow" agents skills
    ```
    결과가 나오면 (project.yaml.example의 예시 경로 제외) 일반화가 덜 된 것
-3. `CHANGELOG.md`에 변경 항목 추가
+3. 변경 항목을 다음 릴리스의 `releases/` 파일에 적어둔다 (없으면 `TEMPLATE.md` 복사해 생성)
 4. 커밋 (메시지 한국어)
 
 ### 버전 릴리스 (git tag)
-- 변경 성격에 따라 SemVer 결정 (VERSIONING.md):
-  - MAJOR: 소비 프로젝트가 `project.yaml`을 고쳐야 하는 변경
-  - MINOR: 자산 추가, 하위호환 개선
-  - PATCH: 문구 교정·버그 수정
-- `CHANGELOG.md`에 해당 버전 섹션 작성
-- `git tag -a vX.Y.Z -m "..."` 후 `git push origin vX.Y.Z`
+1. 변경 성격에 따라 SemVer 결정 (VERSIONING.md):
+   - MAJOR: 소비 프로젝트가 `project.yaml`을 고쳐야 하는 변경
+   - MINOR: 자산 추가, 하위호환 개선
+   - PATCH: 문구 교정·버그 수정
+2. `releases/TEMPLATE.md`를 복사해 `releases/vX.Y.Z.md` 작성 — 자산별 변경·개선·호환성
+3. `CHANGELOG.md` 인덱스에 한 줄 추가
+4. 릴리스 커밋 push → ops-pilot으로 검증 → 결과를 `releases/vX.Y.Z.md` "검증" 섹션에 채워 커밋
+5. 검증 기록이 채워진 커밋에 `git tag -a vX.Y.Z -m "..."` 후 `git push origin vX.Y.Z`
+
+→ 자세한 정책은 VERSIONING.md "릴리스 기록" (검증 후 태그).
 
 ---
 
@@ -69,11 +73,12 @@
 agent-crew/
 ├── CLAUDE.md            # 이 파일
 ├── README.md            # 레포 소개·생태계 위치
-├── VERSIONING.md        # 버전·동기화 정책
-├── CHANGELOG.md         # 버전별 변경 이력
+├── VERSIONING.md        # 버전·동기화·릴리스 기록 정책
+├── CHANGELOG.md         # 버전별 한 줄 인덱스
 ├── project.yaml.example # 소비 프로젝트 설정 스키마
 ├── agents/              # 공유 에이전트 (.md)
-└── skills/              # 공유 스킬 (<name>/SKILL.md)
+├── skills/              # 공유 스킬 (<name>/SKILL.md)
+└── releases/            # 버전별 릴리스 기록 (변경·개선·검증)
 ```
 
 `project.yaml.example`의 **기존 키를 바꾸거나 제거**하면 = 소비 프로젝트가 `project.yaml`을
