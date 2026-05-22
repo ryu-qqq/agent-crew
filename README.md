@@ -32,6 +32,7 @@ agent-crew/
 │   ├── test-strategist.md      # 테스트 전략 — 시나리오 → 테스트 피라미드 매핑
 │   ├── decision-researcher.md  # 의사결정 — 조사·옵션·트레이드오프 리서치 브리프
 │   ├── adr-author.md           # 의사결정 — ADR 작성·확정 (in-repo docs/adr/)
+│   ├── work-evaluator.md       # 작업 평가 — 완료 작업을 4원칙으로 채점
 │   ├── journal-recorder.md     # 지식 축적 — 작업 산출물 → raw 시드
 │   ├── wiki-curator.md         # 지식 축적 — raw 시드 → wiki 합성·승격
 │   └── wiki-lookup.md          # 지식 회수 — 작업 전 wiki 조회
@@ -53,8 +54,8 @@ agent-crew/
 
 agent-crew는 **모든 프로젝트가 공통으로 쓰는 "메타 운영" 레이어**를 담는다 — 작업 추적
 (`jira-manager` · `notion-manager`), 문서 저작(`notion-doc-writer`), 테스트 전략
-(`test-strategist`), 의사결정(`decision-researcher` → `adr-author`), 지식 복리 축적
-(`journal-recorder` → `wiki-curator` → `wiki-lookup`).
+(`test-strategist`), 의사결정(`decision-researcher` → `adr-author`), 작업 평가
+(`work-evaluator`), 지식 복리 축적(`journal-recorder` → `wiki-curator` → `wiki-lookup`).
 
 헥사고날 코드 생성 파이프라인(builder·reviewer 등) 같은 **프로젝트 고유 자산**은 담지
 않는다 — 조직 설계가 프로젝트마다 갈려 공통화가 안 되기 때문.
