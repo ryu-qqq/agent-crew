@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## Unreleased
+## v0.2.0 — 2026-05-22
 
 Notion 작업 추적·문서 저작 에이전트 추가.
 
@@ -14,9 +14,9 @@ Notion 작업 추적·문서 저작 에이전트 추가.
 - `jira-manager`는 **유지** — `notion-manager`와 형제. 소비 프로젝트가 `project.yaml`의 `tracking.jira` / `tracking.notion`으로 택일. 자산 제거 없음.
 - `notion-doc-writer`(능동 산출 문서) ↔ `wiki-curator`(raw 시드 사후 합성)의 경계를 에이전트 본문에 명시. Notion 문서가 vault wiki를 대체하지 않는다.
 
-### 버전 — 릴리스 시 결정
-- 자산 추가는 MINOR. `project.yaml.example`에 추가한 블록은 *선택적·additive* — 기존 소비 프로젝트가 강제로 고칠 게 없다 (VERSIONING.md의 MAJOR 기준 "project.yaml을 고쳐야 하는 변경"에 해당하지 않음).
-- 단, CLAUDE.md는 "project.yaml.example 수정 = MAJOR"로 명시 — 두 문서가 충돌한다. 태그를 끊을 때 v0.2.0(MINOR) / v1.0.0(MAJOR) 중 택하고, 정한 기준으로 CLAUDE.md·VERSIONING.md 문구를 일치시킬 것.
+### 버전
+- **MINOR (v0.2.0)** — 자산 추가 + 선택적·additive 스키마 블록. 기존 Jira 전용 소비 프로젝트는 `project.yaml`을 고칠 필요가 없다 (VERSIONING.md의 MAJOR 기준 "project.yaml을 고쳐야 하는 변경"에 해당하지 않음).
+- CLAUDE.md의 "`project.yaml.example` 수정 = MAJOR" 문구가 이 케이스와 충돌하여, 같은 릴리스에서 "기존 키 변경·제거 = MAJOR / 선택적 블록 추가 = MINOR"로 정정했다.
 
 ## v0.1.0 — 2026-05-22
 

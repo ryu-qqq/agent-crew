@@ -76,7 +76,9 @@ agent-crew/
 └── skills/              # 공유 스킬 (<name>/SKILL.md)
 ```
 
-`project.yaml.example`을 고치면 = 스키마 변경 = 소비 프로젝트 영향 → MAJOR 버전.
+`project.yaml.example`의 **기존 키를 바꾸거나 제거**하면 = 소비 프로젝트가 `project.yaml`을
+고쳐야 함 → MAJOR. **선택적 블록을 추가**(기본값으로 끄고 기존 소비 프로젝트가 손댈 필요 없음)하는
+것은 MINOR. (판정 기준은 VERSIONING.md)
 
 ---
 
