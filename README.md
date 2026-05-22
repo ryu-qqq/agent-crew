@@ -32,6 +32,8 @@ agent-crew는 *순수 자산 저장소*다. 평가·대시보드·런타임 기�
 agent-crew/
 ├── agents/                  # 공유 에이전트 (.md)
 │   ├── jira-manager.md       # 작업 추적 — Jira 이슈/태스크 연동
+│   ├── notion-manager.md     # 작업 추적 — Notion 작업·일정 데이터베이스
+│   ├── notion-doc-writer.md  # 문서 저작 — 스펙·PRD·설계 문서 → Notion 페이지
 │   ├── journal-recorder.md   # 지식 축적 — 작업 산출물 → raw 시드
 │   ├── wiki-curator.md       # 지식 축적 — raw 시드 → wiki 합성·승격
 │   └── wiki-lookup.md        # 지식 회수 — 작업 전 wiki 조회

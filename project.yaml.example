@@ -8,13 +8,19 @@ project:
   # 한 줄 설명 (선택)
   description: ""
 
-# ── 작업 추적 (jira-manager) ────────────────────────────────
+# ── 작업 추적 (jira-manager / notion-manager) ───────────────
+# 보통 jira / notion 중 하나만 enabled: true 로 둔다.
 tracking:
   jira:
     enabled: true
     # Jira 프로젝트 키. 이 키로 이슈를 조회·갱신한다.
     projectKey: ABC
-  # notion: 향후 지원 예정
+  notion:
+    # Jira 대신 Notion 데이터베이스로 작업·일정을 추적하면 true
+    enabled: false
+    # 작업·일정 데이터베이스 ID (Notion DB ID 또는 URL).
+    # notion-manager 가 이 DB 를 운영한다. 일정은 같은 DB 의 date 속성·캘린더 뷰.
+    tasksDatabaseId: ""
 
 # ── 지식 축적 (journal-recorder / wiki-curator / wiki-lookup / journal) ──
 knowledge:
@@ -33,6 +39,17 @@ knowledge:
     rawPrefix: my-project
     # vault 가 git 레포면 true — 갱신 후 commit 한다
     git: true
+
+# ── 문서 저작 (notion-doc-writer) ───────────────────────────
+# 스펙·PRD·설계 문서 등 "능동 산출 문서"를 Notion 에 쓸 때 설정한다.
+# raw 시드 → 합성 지식베이스(vault wiki)는 위 knowledge 섹션 담당 — 역할이 다르다.
+docs:
+  notion:
+    # 스펙·문서를 Notion 페이지로 저작하면 true
+    enabled: false
+    # 문서가 들어갈 Notion 상위 페이지 또는 데이터베이스 ID.
+    # 데이터베이스면 각 문서가 레코드로, 일반 페이지면 하위 페이지로 생성된다.
+    parentId: ""
 
 # ── agent-crew 동기화 정보 (agent-crew.lock 과 함께 관리) ──────
 agentCrew:
