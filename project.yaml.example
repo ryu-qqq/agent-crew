@@ -7,6 +7,9 @@ project:
   name: my-project
   # 한 줄 설명 (선택)
   description: ""
+  # 백엔드 스택 식별자. 스택 특화 자산이 references/<stack>/ 팩을 고를 때 쓴다.
+  # 예: java-spring. 미설정이면 스택 특화 권고 없이 동작한다.
+  stack: java-spring
 
 # ── 작업 추적 (jira-manager / notion-manager) ───────────────
 # 보통 jira / notion 중 하나만 enabled: true 로 둔다.

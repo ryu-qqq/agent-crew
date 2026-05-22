@@ -22,6 +22,16 @@
 프로젝트 고유 에이전트(특정 코드베이스 전용)는 **이 레포에 두지 않는다.** 그 프로젝트의 `.claude/`에 둔다.
 판단 기준: *"프로젝트를 안 가리고 쓸 수 있나?"* → 예일 때만 여기에.
 
+### 스택 특화는 프로젝트 종속과 다르다
+
+`java-spring`처럼 *스택*에 특화된 자산은 그 스택을 쓰는 **모든 프로젝트가 공유**하므로
+허용된다 (프로젝트 종속이 아님). 단:
+
+- 자산 본문(에이전트·스킬)은 스택 무관한 **제네릭 코어**로 쓴다.
+- 스택 specifics(프레임워크·도구·관용구)는 `references/<stack>/` 팩에 분리한다.
+- 자산은 소비 프로젝트 `project.yaml`의 `project.stack`을 읽어 해당 references 팩을 로드한다.
+- `project.stack`이 없거나 팩이 없으면 멈추지 말고 스택 무관 동작으로 폴백한다.
+
 ---
 
 ## 자산 작성 규칙
@@ -47,7 +57,7 @@
 1. `agents/` 또는 `skills/`에 작성·수정
 2. **검증** — 커밋 전 하드코딩 점검:
    ```bash
-   grep -rnE "/Users/|marketplace|FileFlow" agents skills
+   grep -rnE "/Users/|marketplace|FileFlow" agents skills references
    ```
    결과가 나오면 (project.yaml.example의 예시 경로 제외) 일반화가 덜 된 것
 3. 변경 항목을 다음 릴리스의 `releases/` 파일에 적어둔다 (없으면 `TEMPLATE.md` 복사해 생성)
@@ -78,6 +88,7 @@ agent-crew/
 ├── project.yaml.example # 소비 프로젝트 설정 스키마
 ├── agents/              # 공유 에이전트 (.md)
 ├── skills/              # 공유 스킬 (<name>/SKILL.md)
+├── references/          # 스택 특화 지식 팩 (references/<stack>/)
 └── releases/            # 버전별 릴리스 기록 (변경·개선·검증)
 ```
 
