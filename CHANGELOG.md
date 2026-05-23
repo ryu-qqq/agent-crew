@@ -5,5 +5,6 @@
 
 | 버전 | 날짜 | 요약 | 전체 기록 |
 |---|---|---|---|
+| v0.3.0 | 2026-05-23 | 테스트 전략·ADR 의사결정·작업 평가 파이프라인 (test-strategist · decision-researcher · adr-author · work-evaluator + references/java-spring) | [releases/v0.3.0.md](./releases/v0.3.0.md) |
 | v0.2.0 | 2026-05-22 | Notion 작업 추적·문서 저작 에이전트 추가 (notion-manager, notion-doc-writer) | [releases/v0.2.0.md](./releases/v0.2.0.md) |
 | v0.1.0 | 2026-05-22 | 첫 버전 — 기록·지식 공통 코어 (jira-manager, journal·wiki 4종) | [releases/v0.1.0.md](./releases/v0.1.0.md) |
