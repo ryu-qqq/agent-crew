@@ -20,6 +20,9 @@ allowed-tools:
 - `project.name` — 프로젝트 식별자
 - `tracking.notion.enabled` — false거나 키가 없으면 작업을 멈추고 "Notion 미사용 프로젝트"라고 보고
 - `tracking.notion.tasksDatabaseId` — 작업·일정을 추적할 Notion 데이터베이스 ID
+- `tracking.notion.convention` — `engineering-os` 이면 agent-crew `references/notion/engineering-os.md`를 Glob·Read하여 필드·status convention 참고 (DB fetch 결과가 우선)
+- `tracking.notion.fieldNames` — 속성명 override (선택)
+- `tracking.notion.hubPageUrl` — Engineering OS 허브 (선택, 안내용)
 
 `.claude/project.yaml`이 없거나 `tasksDatabaseId`가 비면 멈추고 사용자에게 설정을 요청한다
 (agent-crew `project.yaml.example` 참고).
@@ -63,6 +66,16 @@ Notion MCP 사용 (`mcp__*Notion*` 계열 도구). 인증 필요 시 사용자�
 | 작업 완료 | IN REVIEW → DONE |
 | 사용자 결정 대기 (에스컬레이션) | → BLOCKED |
 | 컨벤션·설계 판정 대기 | → BLOCKED |
+
+**Engineering OS convention** (`tracking.notion.convention: engineering-os`):
+
+| 작업 시점 | `상태` (기본 속성명) |
+|---|---|
+| 작업 시작 | `시작 전` → `진행 중` |
+| 작업 완료 | `진행 중` → `완료` |
+
+완료 시 url 속성 **`Wiki ADR`** · **`Commit`** 을 채운다 (필드명은 `fieldNames`로 override 가능).
+상세 convention은 `references/notion/engineering-os.md`.
 
 > status 속성 이름·옵션은 DB마다 다르다. 전이 전 DB 스키마에서 실제 옵션을 확인한다.
 
@@ -113,6 +126,7 @@ Notion MCP 사용 (`mcp__*Notion*` 계열 도구). 인증 필요 시 사용자�
 
 ## 다른 에이전트와의 관계
 
+- **← engineering-os 스킬** — Task 시작·완료 루프에서 status·Wiki ADR·Commit 위임
 - **← 오케스트레이터/파이프라인** (작업 시작·단계 완료·에스컬레이션)
 - **← 사용자** (직접 요청)
 - **→ journal-recorder와 분업** — Notion은 요약, vault는 과정 (직접 통신은 하지 않음)
