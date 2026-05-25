@@ -11,19 +11,37 @@ project:
   # 예: java-spring. 미설정이면 스택 특화 권고 없이 동작한다.
   stack: java-spring
 
-# ── 작업 추적 (jira-manager / notion-manager) ───────────────
+# ── 작업 추적 (jira-manager / notion-manager / engineering-os) ──
 # 보통 jira / notion 중 하나만 enabled: true 로 둔다.
 tracking:
   jira:
-    enabled: true
+    enabled: false
     # Jira 프로젝트 키. 이 키로 이슈를 조회·갱신한다.
     projectKey: ABC
   notion:
-    # Jira 대신 Notion 데이터베이스로 작업·일정을 추적하면 true
-    enabled: false
-    # 작업·일정 데이터베이스 ID (Notion DB ID 또는 URL).
-    # notion-manager 가 이 DB 를 운영한다. 일정은 같은 DB 의 date 속성·캘린더 뷰.
+    # Notion Engineering OS 또는 자체 Tasks DB로 작업을 추적하면 true
+    enabled: true
+    # convention: engineering-os — references/notion/engineering-os.md 필드 convention 사용
+    # 미설정이면 notion-manager가 DB fetch만으로 freeform 처리
+    convention: engineering-os
+    # Engineering OS 허브 페이지 URL (선택 — 조회·안내용)
+    hubPageUrl: ""
+    # Tasks 데이터베이스 — collection:// URI 또는 Notion DB ID
     tasksDatabaseId: ""
+    # Projects · Epics DB (relation 조회용, 선택)
+    projectsDatabaseId: ""
+    epicsDatabaseId: ""
+    # DB 속성명이 convention과 다를 때 override (선택)
+    fieldNames:
+      status: "상태"
+      title: "작업"
+      taskId: "Task ID"
+      wikiAdr: "Wiki ADR"
+      commit: "Commit"
+      priority: "우선순위"
+      project: "프로젝트"
+      epic: "Epic"
+      dueDate: "마감일"
 
 # ── 지식 축적 (journal-recorder / wiki-curator / wiki-lookup / journal) ──
 knowledge:
@@ -51,12 +69,12 @@ docs:
     # 스펙·문서를 Notion 페이지로 저작하면 true
     enabled: false
     # 문서가 들어갈 Notion 상위 페이지 또는 데이터베이스 ID.
-    # 데이터베이스면 각 문서가 레코드로, 일반 페이지면 하위 페이지로 생성된다.
     parentId: ""
   # ADR(Architecture Decision Record) 저장 경로 — 소비 프로젝트 레포 내 상대 경로.
-  # adr-author 가 이 경로에 NNNN-제목.md 형식으로 ADR 을 쓴다. 미설정 시 기본값 docs/adr.
+  # adr-author 가 이 경로에 NNNN-제목.md 형식으로 ADR 을 쓴다. 미설정 시 docs/adr.
+  # Pivot·아키텍처 ADR은 wiki raw/ 를 쓰는 경우 knowledge.vault 와 engineering-os 루프를 따른다.
   adrPath: docs/adr
 
 # ── agent-crew 동기화 정보 (agent-crew.lock 과 함께 관리) ──────
 agentCrew:
-  version: v0.1.0
+  version: v0.4.0

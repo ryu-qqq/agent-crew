@@ -39,9 +39,11 @@ agent-crew/
 ├── skills/
 │   ├── journal/SKILL.md      # 사용자 직접 기록·문서 생성 진입점
 │   ├── test-plan/SKILL.md    # 테스트 계획 수립 진입점
-│   └── adr/SKILL.md          # 조사·결정·기록 ADR 파이프라인 진입점
-├── references/               # 스택 특화 지식 팩 (제네릭 자산이 런타임 로드)
-│   └── java-spring/          # Java·Spring Boot
+│   ├── adr/SKILL.md          # 조사·결정·기록 ADR 파이프라인 진입점
+│   └── engineering-os/SKILL.md  # Engineering OS(Notion) 작업 시작·완료 루프
+├── references/               # 스택·운영 convention 팩 (제네릭 자산이 런타임 로드)
+│   ├── java-spring/          # Java·Spring Boot
+│   └── notion/               # Notion Engineering OS 필드 convention
 ├── project.yaml.example      # 소비 프로젝트가 채워야 할 설정 스키마
 ├── releases/                 # 버전별 릴리스 기록 (변경·개선·검증·모델별)
 │   ├── TEMPLATE.md
