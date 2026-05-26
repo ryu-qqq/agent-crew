@@ -101,7 +101,7 @@ agent-crew/
 ├── project.yaml.example # 소비 프로젝트 설정 스키마
 ├── agents/              # 공유 에이전트 (.md)
 ├── skills/              # 공유 스킬 (<name>/SKILL.md)
-├── references/          # 스택 특화 지식 팩 (references/<stack>/)
+├── references/          # 스택·convention 지식 팩 (references/<stack>/ · conventions/)
 └── releases/            # 버전별 릴리스 기록 (변경·개선·검증)
 ```
 
@@ -117,10 +117,22 @@ agent-crew/
 
 ## 커밋 메시지
 
-```
-<타입>: <한국어 요약>
+**소비 프로젝트(앱·문서 레포) 일반 커밋** — `references/conventions/commit-format.md` + 소비 프로젝트 `.claude/project.yaml`의 `git.commit`.
 
-<본문 — 필요 시>
+```
+<type>(<scope>): <TICKET> <한국어 요약>
+
+why: (선택)
 
 Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>
 ```
+
+**이 레포(agent-crew) 자체 커밋** — type 생략 가능, 티켓 없이 요약만:
+
+```
+docs: engineering-os 커밋 convention reference 추가
+
+Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>
+```
+
+PR 제목은 [references/conventions/pr-title.md](./references/conventions/pr-title.md) — squash 시 subject와 동일.

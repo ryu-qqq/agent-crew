@@ -5,6 +5,7 @@
 
 | 버전 | 날짜 | 요약 | 전체 기록 |
 |---|---|---|---|
+| v0.6.0 | 2026-05-26 | Git 커밋·PR convention — references/conventions · engineering-os · project.yaml git.commit | [releases/v0.6.0.md](./releases/v0.6.0.md) |
 | v0.5.0 | 2026-05-25 | OpsPilot feedback loop — proposal-reviewer · proposal-applier · feedback-loop skill | [releases/v0.5.0.md](./releases/v0.5.0.md) |
 | v0.4.0 | 2026-05-25 | Engineering OS Notion 작업 루프 (engineering-os skill · references/notion · notion-manager convention) | [releases/v0.4.0.md](./releases/v0.4.0.md) |
 | v0.3.0 | 2026-05-23 | 테스트 전략·ADR 의사결정·작업 평가 파이프라인 (test-strategist · decision-researcher · adr-author · work-evaluator + references/java-spring) | [releases/v0.3.0.md](./releases/v0.3.0.md) |

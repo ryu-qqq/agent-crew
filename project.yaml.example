@@ -78,3 +78,17 @@ docs:
 # ── agent-crew 동기화 정보 (agent-crew.lock 과 함께 관리) ──────
 agentCrew:
   version: v0.4.0
+
+# ── git 커밋·PR (references/conventions/commit-format.md) ─────
+git:
+  commit:
+    # true면 subject에 TICKET 필수 (에이전트·eo-done)
+    requireTicket: true
+    # notion-task-id | jira-key | literal
+    ticketSource: notion-task-id
+    # ticketSource: literal 일 때 prefix (예: spring-platform → SPC)
+    ticketPrefix: ""
+    # true면 OpsPilot ingest_cursor_session 전 subject 검증 (선택)
+    requireOnIngest: false
+    # 에이전트 scope 힌트 (선택) — docs/platform 등
+    scopesHint: []
