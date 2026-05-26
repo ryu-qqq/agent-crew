@@ -32,7 +32,9 @@ agent-crew/
 │   ├── test-strategist.md      # 테스트 전략 — 시나리오 → 테스트 피라미드 매핑
 │   ├── decision-researcher.md  # 의사결정 — 조사·옵션·트레이드오프 리서치 브리프
 │   ├── adr-author.md           # 의사결정 — ADR 작성·확정 (in-repo docs/adr/)
-│   ├── work-evaluator.md       # 작업 평가 — 완료 작업을 4원칙으로 채점
+│   ├── work-evaluator.md       # 작업 평가 — 완료 작업을 4원칙으로 채점 (+ ingest 개선안 JSON)
+│   ├── proposal-reviewer.md    # 피드백 — draft proposal 중복·충돌 검토
+│   ├── proposal-applier.md     # 피드백 — OpsPilot MCP로 approved proposal 반영
 │   ├── journal-recorder.md     # 지식 축적 — 작업 산출물 → raw 시드
 │   ├── wiki-curator.md         # 지식 축적 — raw 시드 → wiki 합성·승격
 │   └── wiki-lookup.md          # 지식 회수 — 작업 전 wiki 조회
@@ -40,7 +42,8 @@ agent-crew/
 │   ├── journal/SKILL.md      # 사용자 직접 기록·문서 생성 진입점
 │   ├── test-plan/SKILL.md    # 테스트 계획 수립 진입점
 │   ├── adr/SKILL.md          # 조사·결정·기록 ADR 파이프라인 진입점
-│   └── engineering-os/SKILL.md  # Engineering OS(Notion) 작업 시작·완료 루프
+│   ├── engineering-os/SKILL.md  # Engineering OS(Notion) 작업 시작·완료 루프
+│   └── feedback-loop/SKILL.md   # OpsPilot ingest → eval → review → apply
 ├── references/               # 스택·운영 convention 팩 (제네릭 자산이 런타임 로드)
 │   ├── java-spring/          # Java·Spring Boot
 │   └── notion/               # Notion Engineering OS 필드 convention
@@ -57,7 +60,8 @@ agent-crew/
 agent-crew는 **모든 프로젝트가 공통으로 쓰는 "메타 운영" 레이어**를 담는다 — 작업 추적
 (`jira-manager` · `notion-manager`), 문서 저작(`notion-doc-writer`), 테스트 전략
 (`test-strategist`), 의사결정(`decision-researcher` → `adr-author`), 작업 평가
-(`work-evaluator`), 지식 복리 축적(`journal-recorder` → `wiki-curator` → `wiki-lookup`).
+(`work-evaluator`), **OpsPilot feedback loop** (`proposal-reviewer` · `proposal-applier` ·
+`feedback-loop` skill), 지식 복리 축적(`journal-recorder` → `wiki-curator` → `wiki-lookup`).
 
 헥사고날 코드 생성 파이프라인(builder·reviewer 등) 같은 **프로젝트 고유 자산**은 담지
 않는다 — 조직 설계가 프로젝트마다 갈려 공통화가 안 되기 때문.
@@ -65,7 +69,8 @@ agent-crew는 **모든 프로젝트가 공통으로 쓰는 "메타 운영" 레�
 ## 소비 프로젝트에 적용
 
 소비 프로젝트로의 동기화·적용은 **[ops-pilot](https://github.com/ryu-qqq/ops-pilot)**이
-맡는다. 어느 버전을 가져올지·어떻게 핀 고정할지는 ops-pilot 문서를 따른다.
+맡는다. MCP `sync_agent_crew` 또는 REST `POST /projects/:id/sync-agent-crew`로
+`.claude/agents|skills|references`를 lock/tag 기준으로 반영한 뒤 `scan_project`한다.
 
 각 소비 프로젝트는 `project.yaml.example`을 `.claude/project.yaml`로 복사해 프로젝트
 고유 값을 채운다.
