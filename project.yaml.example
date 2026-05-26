@@ -10,6 +10,13 @@ project:
   # 백엔드 스택 식별자. 스택 특화 자산이 references/<stack>/ 팩을 고를 때 쓴다.
   # 예: java-spring. 미설정이면 스택 특화 권고 없이 동작한다.
   stack: java-spring
+  # 사용 IDE — claude-code | cursor | both
+  # ops-pilot이 sync 시 해당 IDE용 강제 참조 스니펫을 자동 배포한다
+  #   claude-code → CLAUDE.md 맨 위에 MUST 블록 주입
+  #   cursor      → .cursor/rules/agent-crew-must.mdc (alwaysApply: true) 주입
+  #   both        → 둘 다
+  # 자세히: references/conventions/must-reference/README.md
+  ide: claude-code
 
 # ── 작업 추적 (jira-manager / notion-manager / engineering-os) ──
 # 보통 jira / notion 중 하나만 enabled: true 로 둔다.
@@ -77,7 +84,14 @@ docs:
 
 # ── agent-crew 동기화 정보 (agent-crew.lock 과 함께 관리) ──────
 agentCrew:
-  version: v0.4.0
+  version: v0.7.0
+  # 강제 참조할 자산 키 — ops-pilot이 sync 시 must-reference 스니펫에 동적으로 포함시킴
+  # 사용 가능 키: references/conventions/must-reference/README.md 의 "어떤 자산을 강제할지 선택"
+  # 기본 권장은 work-evaluator-4-principles 하나. 컨벤션 추가는 명시적 opt-in.
+  mustReference:
+    - work-evaluator-4-principles
+    # - commit-format
+    # - pr-title
 
 # ── git 커밋·PR (references/conventions/commit-format.md) ─────
 git:

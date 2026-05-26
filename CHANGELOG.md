@@ -5,6 +5,7 @@
 
 | 버전 | 날짜 | 요약 | 전체 기록 |
 |---|---|---|---|
+| v0.7.0 | 2026-05-26 | must-reference 강제 참조 스니펫 (Claude Code · Cursor) — references/conventions/must-reference · project.yaml.ide · mustReference | [releases/v0.7.0.md](./releases/v0.7.0.md) |
 | v0.6.0 | 2026-05-26 | Git 커밋·PR convention — references/conventions · engineering-os · project.yaml git.commit | [releases/v0.6.0.md](./releases/v0.6.0.md) |
 | v0.5.0 | 2026-05-25 | OpsPilot feedback loop — proposal-reviewer · proposal-applier · feedback-loop skill | [releases/v0.5.0.md](./releases/v0.5.0.md) |
 | v0.4.0 | 2026-05-25 | Engineering OS Notion 작업 루프 (engineering-os skill · references/notion · notion-manager convention) | [releases/v0.4.0.md](./releases/v0.4.0.md) |
