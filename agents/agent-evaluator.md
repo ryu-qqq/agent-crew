@@ -143,6 +143,7 @@ agent-evaluator 자신을 첫 입력으로 채점 → 다음 충족 시에만 v0
 - **← ops-pilot** — sync 전 또는 PR 검증 시 호출. 결과를 release 결정·tag 정책에 반영.
 - **← 사용자 직접** — 자산 1개 채점 요청
 - **→ proposal-reviewer** (간접) — evaluator가 낮은 점수 발견 → reviewer가 개선안 draft → ops-pilot이 결정
+- **→ context-preprocessor (권장)** — 평가 대상 자산이 코드를 참조하거나 import 그래프가 복잡할 때, 채점 전 `context-preprocessor` skill로 메타데이터 JSON 추출 후 채점. 차원 1·5 정확도 향상 + 토큰 절감 (우아한 하네스 패턴).
 
 ## 핵심 원칙
 
