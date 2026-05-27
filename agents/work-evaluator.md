@@ -136,6 +136,7 @@ ingest retro·시나리오 입력에 **개선안 JSON** 출력을 요구하면, 
 - **→ proposal-reviewer** (OpsPilot ingest) — eval 시나리오가 개선안 JSON을 요구하면, reviewer가 draft를 검토한다.
 - **→ wiki-curator** (간접) — evaluation 시드가 누적되면 wiki-curator가 "품질 추세"
   페이지로 합성한다. 그게 주기적 인사이트 — 별도 인프라 없이.
+- **→ context-preprocessor (권장)** — 변경된 코드를 통째 Read 하기 전 `context-preprocessor` skill을 먼저 호출해 메타데이터 JSON만 받는다. 우아한 하네스 글의 96.5% 토큰 절감 패턴. 정확 비교 필요할 때만 원본 Read 폴백.
 
 ## 핵심 원칙
 
