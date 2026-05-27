@@ -145,6 +145,17 @@ verifier 부재 강도별:
 
 **차원 7 = 0점**이면 점수 무관 `reevaluate-required` 이상으로 강등.
 
+## 자가 호의 보정 — 단순 가산식 X (v0.9.1)
+
+자가검증 점수와 외부 검증 점수 차이는 **양방향**으로 발생한다:
+
+- 자가 *과대* — 자기 자산에 후하게 (가설)
+- 자가 *과소* — 작성 직후 신중함이 점수 낮춤 (context-preprocessor v0.9.0 실측)
+
+→ **agent-evaluator의 verdict 산출에 자가 점수 단순 가산 적용 X**. 자가·외부 점수가 모두 있을 때만 비교 활용. 후속 누적 데이터로 자산 유형별·시점별 분포 분석 → 보정 계수 도출 후 도입 검토.
+
+근거: [ryu-qqq-wiki/wiki/research/agent-engineering/99-evaluation-framework.md §6.4](https://github.com/ryu-qqq/ryu-qqq-wiki/blob/main/wiki/research/agent-engineering/99-evaluation-framework.md)
+
 ---
 
 ## 사용
