@@ -5,7 +5,7 @@
 
 | 버전 | 날짜 | 요약 | 전체 기록 |
 |---|---|---|---|
-| v0.11.0 | 2026-06-02 | 평가 설계 자산화 — scenario-designer 신규(시나리오 input+성공조건 통합 생성) + trigger-designer description 개선 모드 추가 (ops-pilot ADR 0002 후속1, MINOR, 미검증) | [releases/v0.11.0.md](./releases/v0.11.0.md) |
+| v0.11.0 | 2026-06-02 | 평가 설계 자산화 — scenario-designer 신규(시나리오 input+성공조건 통합 생성) + trigger-designer description 개선 모드 추가 (ops-pilot ADR 0002, MINOR, scenario-designer 1B/4B 실연동 ✅·나머지 미검증) | [releases/v0.11.0.md](./releases/v0.11.0.md) |
 | v0.10.1 | 2026-06-02 | journal-recorder git 미관여 명문화 — 공유 vault 타 프로젝트 브랜치 오염 방지 (PATCH, 동작 축소, 검증 보류) | [releases/v0.10.1.md](./releases/v0.10.1.md) |
 | v0.10.0 | 2026-06-01 | 하네스 creator — skill·agent 저작 오케스트레이터 + 보조 에이전트 (skills/harness-creator · agents/harness-author · agents/harness-trigger-designer, 평가는 ops-pilot 위임) | [releases/v0.10.0.md](./releases/v0.10.0.md) |
 | v0.9.1 | 2026-05-27 | agent-evaluator 호출 가이드 구체화 + rubric §9 한계 명시 (PATCH, 점수 변화 0, 정직성 향상) | [releases/v0.9.1.md](./releases/v0.9.1.md) |
