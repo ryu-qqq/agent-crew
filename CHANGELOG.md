@@ -5,6 +5,7 @@
 
 | 버전 | 날짜 | 요약 | 전체 기록 |
 |---|---|---|---|
+| v0.13.0 | 2026-06-05 | tf-import 스킬 — 기존 AWS 리소스 0-diff terraform 입양 (인벤토리→미러링→import→plan 게이트(태그 외 변경 STOP)→태그 apply). agent-crew 최초 인프라 실행 절차 자산 (MINOR, 미검증) | [releases/v0.13.0.md](./releases/v0.13.0.md) |
 | v0.11.0 | 2026-06-02 | 평가 설계 자산화 — scenario-designer 신규(시나리오 input+성공조건 통합 생성) + trigger-designer description 개선 모드 추가 (ops-pilot ADR 0002, MINOR, scenario-designer 1B/4B 실연동 ✅·나머지 미검증) | [releases/v0.11.0.md](./releases/v0.11.0.md) |
 | v0.10.1 | 2026-06-02 | journal-recorder git 미관여 명문화 — 공유 vault 타 프로젝트 브랜치 오염 방지 (PATCH, 동작 축소, 검증 보류) | [releases/v0.10.1.md](./releases/v0.10.1.md) |
 | v0.10.0 | 2026-06-01 | 하네스 creator — skill·agent 저작 오케스트레이터 + 보조 에이전트 (skills/harness-creator · agents/harness-author · agents/harness-trigger-designer, 평가는 ops-pilot 위임) | [releases/v0.10.0.md](./releases/v0.10.0.md) |
