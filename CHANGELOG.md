@@ -5,6 +5,9 @@
 
 | 버전 | 날짜 | 요약 | 전체 기록 |
 |---|---|---|---|
+| v0.14.0 | 2026-06-08 | abstraction-critic + shared-SDK 추상화 리뷰 rubric — 공용 추상화가 "올바른 공용 추상화인가"를 6축(commonality·seam·isp·neutrality·yagni·conventions)으로 채점하는 설계 앞단 게이트. cross-module 감사에서 도출, resilience-reviewer·agent-evaluator와 직교 (agents/abstraction-critic · references/conventions/shared-sdk-abstraction-review, MINOR, 미검증) | [releases/v0.14.0.md](./releases/v0.14.0.md) |
+| v0.13.0 | 2026-06-05 | tf-import 스킬 — 기존 AWS 리소스 0-diff terraform 입양 (인벤토리→미러링→import→plan 게이트(태그 외 변경 STOP)→태그 apply). agent-crew 최초 인프라 실행 절차 자산 (MINOR, 미검증) | [releases/v0.13.0.md](./releases/v0.13.0.md) |
+| v0.12.0 | 2026-06-03 | frontmatter 정합 — agents 16개 `allowed-tools`→`tools`(서브에이전트 정식 키) + journal SKILL description YAML 파싱 버그 해소 (PATCH 성격·동작 무변, 태그는 MINOR 자리로 발행·기록 사후 보충) | [releases/v0.12.0.md](./releases/v0.12.0.md) |
 | v0.11.0 | 2026-06-02 | 평가 설계 자산화 — scenario-designer 신규(시나리오 input+성공조건 통합 생성) + trigger-designer description 개선 모드 추가 (ops-pilot ADR 0002, MINOR, scenario-designer 1B/4B 실연동 ✅·나머지 미검증) | [releases/v0.11.0.md](./releases/v0.11.0.md) |
 | v0.10.1 | 2026-06-02 | journal-recorder git 미관여 명문화 — 공유 vault 타 프로젝트 브랜치 오염 방지 (PATCH, 동작 축소, 검증 보류) | [releases/v0.10.1.md](./releases/v0.10.1.md) |
 | v0.10.0 | 2026-06-01 | 하네스 creator — skill·agent 저작 오케스트레이터 + 보조 에이전트 (skills/harness-creator · agents/harness-author · agents/harness-trigger-designer, 평가는 ops-pilot 위임) | [releases/v0.10.0.md](./releases/v0.10.0.md) |
