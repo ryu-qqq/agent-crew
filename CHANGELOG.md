@@ -5,6 +5,7 @@
 
 | 버전 | 날짜 | 요약 | 전체 기록 |
 |---|---|---|---|
+| v0.16.0 | 2026-06-11 | review-ledger 스킬 — 수용된 PR 리뷰 지적을 실수 원장에 적립: OpsPilot 베드케이스 시나리오 + vault 시드 + 반복 시 자산 개선 proposal 초안. triage 선행·적립 전담·HITL 선별 (MINOR, 미검증) | [releases/v0.16.0.md](./releases/v0.16.0.md) |
 | v0.15.0 | 2026-06-08 | pr-review-triage 스킬 — GitHub PR 리뷰를 gh CLI로 모아 코드와 대조해 판단, ✅수용/🔁반론/⏸보류/☑️해결로 분류한 액션 플랜 제시. 맹목 수용 금지·read-only HITL(수정·답글은 사람 승인 후) (MINOR, dogfooding 통과·ops-pilot grade 미검증) | [releases/v0.15.0.md](./releases/v0.15.0.md) |
 | v0.14.0 | 2026-06-08 | abstraction-critic + shared-SDK 추상화 리뷰 rubric — 공용 추상화가 "올바른 공용 추상화인가"를 6축(commonality·seam·isp·neutrality·yagni·conventions)으로 채점하는 설계 앞단 게이트. cross-module 감사에서 도출, resilience-reviewer·agent-evaluator와 직교 (agents/abstraction-critic · references/conventions/shared-sdk-abstraction-review, MINOR, 미검증) | [releases/v0.14.0.md](./releases/v0.14.0.md) |
 | v0.13.0 | 2026-06-05 | tf-import 스킬 — 기존 AWS 리소스 0-diff terraform 입양 (인벤토리→미러링→import→plan 게이트(태그 외 변경 STOP)→태그 apply). agent-crew 최초 인프라 실행 절차 자산 (MINOR, 미검증) | [releases/v0.13.0.md](./releases/v0.13.0.md) |
