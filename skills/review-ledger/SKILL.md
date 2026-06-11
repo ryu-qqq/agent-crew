@@ -22,7 +22,9 @@ allowed-tools:
 - `knowledge.vault.rawPrefix` — raw 시드 파일명 prefix
 
 OpsPilot `projectId`는 project.yaml에 없으면 `list_projects`(MCP) 결과 또는 사용자 확인으로
-얻는다 — 추측해서 다른 프로젝트에 시나리오를 만들지 않는다.
+얻는다 — 추측해서 다른 프로젝트의 자산을 고르지 않는다. projectId는 **자산 식별(2단계
+`list_assets`)에만** 쓴다 — 시나리오 생성(`POST /scenarios`) 계약에는 없는 필드다
+(`assetId`가 프로젝트를 이미 가린다).
 아래 본문에서 vault 경로는 `{vault.path}`, prefix는 `{rawPrefix}`로 표기한다.
 
 ## 역할
@@ -135,13 +137,14 @@ append-only 규율 — 기존 시드는 수정하지 않고, git에도 손대지
 - **적립**: {시나리오 생성 여부 + 시나리오 name / 시드만}
 ```
 
-**반복 감지** — 기록 전에 기존 ledger 시드(`{vault.path}/raw/*review-ledger*`)와 해당
+**반복 감지** — 기록 전에 기존 ledger 시드(`{vault.path}/raw/{rawPrefix}-*-review-ledger.md`
+— 쓰기와 같은 패턴. vault를 공유하는 다른 프로젝트의 ledger가 섞이지 않게)와 해당
 자산의 기존 시나리오를 Grep/조회해, **같은 유형 지적이 2회 이상**이면 자산 개선 proposal
 초안을 본문에 제시한다 (work-evaluator proposal 포맷):
 
 ```json
 {
-  "targetKind": "cursor_rule | agent | skill | command",
+  "targetKind": "cursor_rule | agent | skill | command | workflow_patch",
   "targetPath": "<고칠 자산 경로>",
   "rationale": "<같은 지적 N회 반복 — 근거가 된 ledger 항목·시나리오 나열>",
   "content": "<자산에 추가/수정할 본문 초안>"
