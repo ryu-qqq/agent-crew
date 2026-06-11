@@ -23,7 +23,7 @@ allowed-tools:
 
 OpsPilot `projectId`는 project.yaml에 없으면 `list_projects`(MCP) 결과 또는 사용자 확인으로
 얻는다 — 추측해서 다른 프로젝트의 자산을 고르지 않는다. projectId는 **자산 식별(2단계
-`list_assets`)에만** 쓴다 — 시나리오 생성(`POST /scenarios`) 계약에는 없는 필드다
+`list_assets`)에만** 쓴다 — 시나리오 생성(`POST /api/scenarios`) 계약에는 없는 필드다
 (`assetId`가 프로젝트를 이미 가린다).
 아래 본문에서 vault 경로는 `{vault.path}`, prefix는 `{rawPrefix}`로 표기한다.
 
@@ -93,13 +93,13 @@ PR 리뷰에서 **수용된(타당하다고 판단된) 지적**은 사람이 직
 먼저 중복 확인 — 같은 자산에 유사 시나리오가 이미 있으면 **생성하지 말고 사용자에게 알린다**:
 
 ```bash
-curl -s "http://localhost:3001/scenarios?assetId=<assetId>"
+curl -s "http://localhost:3001/api/scenarios?assetId=<assetId>"
 ```
 
 생성:
 
 ```bash
-curl -s -X POST http://localhost:3001/scenarios \
+curl -s -X POST http://localhost:3001/api/scenarios \
   -H "Content-Type: application/json" \
   -d '{
     "assetId": "<책임 자산 id>",
