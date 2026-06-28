@@ -171,8 +171,9 @@ curl -s -X POST http://localhost:3001/api/feedback/review-proposal \
 ```
 
 - `prNumber`: **따옴표 없는 정수**여야 함. 예시는 `123`이지만, 실제 값으로 수용된 지적이 나온 PR 번호(정수)를 대입.
-- `scenarioId`: 4단계 시나리오 등록 응답에서 받은 값이 있으면 채운다(같은 지적의 시나리오와
-  proposal을 연결). 없으면 필드를 생략한다.
+- `scenarioId`: 4단계 시나리오 등록 응답에서 받은 값(또는 중복으로 생성을 건너뛴 경우
+  `GET /api/scenarios?assetId=<assetId>`로 조회한 기존 시나리오의 id)이 있으면 채운다(같은
+  지적의 시나리오와 proposal을 연결). 없으면 필드를 생략한다.
 - `review.*` 필드는 triage 결과 및 입력에서 채운다. `commentUrl`은 없으면 빈 문자열.
 - `projectId` 확보 방법은 이 파일 상단 "프로젝트 설정 로드" 참조.
 
