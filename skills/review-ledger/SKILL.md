@@ -23,8 +23,8 @@ allowed-tools:
 
 OpsPilot `projectId`는 project.yaml에 없으면 `list_projects`(MCP) 결과 또는 사용자 확인으로
 얻는다 — 추측해서 다른 프로젝트의 자산을 고르지 않는다. projectId는 **자산 식별(2단계
-`list_assets`)에만** 쓴다 — 시나리오 생성(`POST /api/scenarios`) 계약에는 없는 필드다
-(`assetId`가 프로젝트를 이미 가린다).
+`list_assets`)** 및 **proposal 적립(`POST /api/feedback/review-proposal` 5단계)**에 쓴다
+— 시나리오 생성(`POST /api/scenarios`) 계약에는 없는 필드다(`assetId`가 프로젝트를 이미 가린다).
 아래 본문에서 vault 경로는 `{vault.path}`, prefix는 `{rawPrefix}`로 표기한다.
 
 ## 역할
@@ -36,8 +36,8 @@ PR 리뷰에서 **수용된(타당하다고 판단된) 지적**은 사람이 직
 1. **OpsPilot 시나리오** — 실수가 나온 입력을 재현하는 베드케이스 시나리오를 책임 자산에 등록.
    이후 자산이 바뀔 때마다 "이 실수를 다시 하나"가 자동 평가된다.
 2. **vault raw 시드** — 어떤 지적이 언제 어떤 자산 때문에 나왔는지 append-only 기록.
-3. **자산 개선 proposal 초안** — 같은 유형이 반복되면 자산 본문을 고치자는 초안까지 제시
-   (적용은 사람 승인 후 별도).
+3. **자산 개선 proposal 적립** — 같은 유형이 반복되면 자산 본문을 고치자는 proposal을
+   ops-pilot에 `draft`로 자동 적립한다(사람이 선택한 것만 — apply 승인은 사람이).
 
 이 스킬은 **적립만** 한다. 리뷰 수집·판단·분류는 pr-review-triage 몫이고, 코드 수정·proposal
 적용은 범위 밖이다.
@@ -140,31 +140,61 @@ append-only 규율 — 기존 시드는 수정하지 않고, git에도 손대지
 **반복 감지** — 기록 전에 기존 ledger 시드(`{vault.path}/raw/{rawPrefix}-*-review-ledger.md`
 — 쓰기와 같은 패턴. vault를 공유하는 다른 프로젝트의 ledger가 섞이지 않게)와 해당
 자산의 기존 시나리오를 Grep/조회해, **같은 유형 지적이 2회 이상**이면 자산 개선 proposal
-초안을 본문에 제시한다 (work-evaluator proposal 포맷):
+초안을 구성하고 ops-pilot에 적립한다:
 
-```json
-{
-  "targetKind": "cursor_rule | agent | skill | command | workflow_patch",
-  "targetPath": "<고칠 자산 경로>",
-  "rationale": "<같은 지적 N회 반복 — 근거가 된 ledger 항목·시나리오 나열>",
-  "content": "<자산에 추가/수정할 본문 초안>"
-}
+**proposal 대상 선별 (HITL)** — 구성한 proposal 초안을 표로 보여주고 적립할 것을 사람이 고른다:
+
+| # | 자산 | 반복 횟수 | 변경 요약 | 적립 여부 |
+|---|---|---|---|---|
+| 1 | skill/builder-x | 3회 | null 가드 규칙 추가 | 사람이 Y/N |
+
+**선택된 proposal 적립 (POST)** — 사람이 선택한 항목마다 ops-pilot에 POST한다:
+
+```bash
+curl -s -X POST http://localhost:3001/api/feedback/review-proposal \
+  -H "Content-Type: application/json" \
+  -d '{
+    "projectId": "<project.yaml 또는 list_projects로 확보한 id>",
+    "targetKind": "<cursor_rule|cursor_skill|agent|skill|command|workflow_patch>",
+    "targetPath": "<고칠 자산 경로>",
+    "rationale": "<같은 지적 N회 반복 — 근거가 된 ledger 항목·시나리오 나열>",
+    "content": "<자산에 추가/수정할 본문 초안>",
+    "review": {
+      "prNumber": 123,
+      "repo": "<PR 레포>",
+      "commentUrl": "<리뷰 코멘트 URL — 없으면 빈 문자열>",
+      "reviewer": "<리뷰어>",
+      "mistakeType": "<실수 유형 — triage 결과에서>"
+    },
+    "scenarioId": "<4단계 POST /api/scenarios 응답의 id — 없으면 필드 생략>"
+  }'
 ```
 
-초안은 **제시까지**다. 적용은 사람 승인 후 proposal-reviewer/proposal-applier 경로 또는
-직접 수정으로 — 이 스킬이 자산을 고치지 않는다.
+- `prNumber`: **따옴표 없는 정수**여야 함. 예시는 `123`이지만, 실제 값으로 수용된 지적이 나온 PR 번호(정수)를 대입.
+- `scenarioId`: 4단계 시나리오 등록 응답에서 받은 값(또는 중복으로 생성을 건너뛴 경우
+  `GET /api/scenarios?assetId=<assetId>`로 조회한 기존 시나리오의 id)이 있으면 채운다(같은
+  지적의 시나리오와 proposal을 연결). 없으면 필드를 생략한다.
+- `review.*` 필드는 triage 결과 및 입력에서 채운다. `commentUrl`은 없으면 빈 문자열.
+- `projectId` 확보 방법은 이 파일 상단 "프로젝트 설정 로드" 참조.
+
+**응답 처리 및 결과 안내** — 성공 응답 `{ ingestId, proposalId }`를 받아 적립 결과를
+정리하고 다음을 안내한다:
+
+> proposal이 ops-pilot 인박스에 `draft`로 적립됐습니다.
+> ops-pilot 인박스에서 검토 후 approve하세요 — approve 전까지 자산에는 적용되지 않습니다.
+> apply 승인은 사람이 합니다. 이 스킬은 draft 적립까지입니다.
 
 ## HITL 경계
 
 - **에이전트가 직접**: triage 결과 정리 · 책임 자산 추정 · 선별 표 제시 · (선택된 것의)
-  시나리오 생성 · 시드 append · 반복 감지 · proposal 초안 작성
-- **사람 승인 후 (이 스킬 밖)**: 적립 대상 최종 선별 · proposal 적용 · 코드 수정 · vault 커밋
+  시나리오 생성 · 시드 append · 반복 감지 · proposal 초안 구성 · 선택된 proposal ops-pilot 적립(POST)
+- **사람 승인 후 (이 스킬 밖)**: 적립 대상 최종 선별 · proposal 제출 대상 선별 · ops-pilot에서 proposal 검토·approve/apply · 코드 수정 · vault 커밋
 
 ## 산출물
 
 - 지적별 적립 결과 표 — 시나리오 생성됨(name·assetId) / 시드만 / 건너뜀(이유)
 - ledger 시드 파일 경로 + 항목 번호
-- (반복 패턴 발견 시) 자산 개선 proposal 초안 JSON
+- (반복 패턴 발견 시) 자산 개선 proposal 적립 결과 — `{ ingestId, proposalId }` 목록 + ops-pilot 인박스 확인 안내
 
 ## 경계 — 이웃 자산과의 분업
 
@@ -172,7 +202,7 @@ append-only 규율 — 기존 시드는 수정하지 않고, git에도 손대지
   받아 적립만 한다.
 - **journal-recorder / wiki-curator**: 일반 시드·wiki 합성. ledger 시드는 같은 raw 명명
   규칙·append-only 규율을 따르는 별도 유형이다.
-- **proposal-reviewer / proposal-applier**: proposal의 검토·적용. 이 스킬은 초안 산출까지.
+- **proposal-reviewer / proposal-applier**: proposal의 검토·적용. 이 스킬은 ops-pilot draft 적립까지 — approve·apply는 ops-pilot 인박스에서 사람이.
 - ops-pilot의 cursor-feedback-review(proposal 검토 시나리오)와는 **무관**하다 — 이름이
   비슷하다고 혼동하지 않는다.
 
