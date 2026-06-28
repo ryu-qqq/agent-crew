@@ -160,7 +160,7 @@ curl -s -X POST http://localhost:3001/api/feedback/review-proposal \
     "rationale": "<같은 지적 N회 반복 — 근거가 된 ledger 항목·시나리오 나열>",
     "content": "<자산에 추가/수정할 본문 초안>",
     "review": {
-      "prNumber": "<수용된 지적이 나온 PR 번호>",
+      "prNumber": 123,
       "repo": "<PR 레포>",
       "commentUrl": "<리뷰 코멘트 URL — 없으면 빈 문자열>",
       "reviewer": "<리뷰어>",
@@ -170,6 +170,7 @@ curl -s -X POST http://localhost:3001/api/feedback/review-proposal \
   }'
 ```
 
+- `prNumber`: **따옴표 없는 정수**여야 함. 예시는 `123`이지만, 실제 값으로 수용된 지적이 나온 PR 번호(정수)를 대입.
 - `scenarioId`: 4단계 시나리오 등록 응답에서 받은 값이 있으면 채운다(같은 지적의 시나리오와
   proposal을 연결). 없으면 필드를 생략한다.
 - `review.*` 필드는 triage 결과 및 입력에서 채운다. `commentUrl`은 없으면 빈 문자열.
